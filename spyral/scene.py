@@ -320,6 +320,14 @@ class Scene(object):
             else:
                 bg = spyral.Image(background)
             self._set_background(bg)
+        if 'image' in properties:
+            image = properties.pop('image')
+            if isinstance(image, (tuple, list)):
+                bg = spyral.Image(size=self.size)
+                bg.fill(image)
+            else:
+                bg = spyral.Image(image)
+            self._set_background(bg)
         if 'layers' in properties:
             layers = properties.pop('layers')
             self._set_layers(layers)
@@ -466,6 +474,7 @@ class Scene(object):
         return self._background
 
     background = property(_get_background, _set_background)
+    image = property(_get_background, _set_background)
 
     def _register_sprite(self, sprite):
         """
